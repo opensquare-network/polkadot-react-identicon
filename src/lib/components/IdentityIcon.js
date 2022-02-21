@@ -40,18 +40,19 @@ const Components = {
   polkadot: Polkadot,
 };
 
-function MyIcon({value}) {
+function MyIcon(props) {
   let prefix;
+  const {value} = props;
   const address = isU8a(value) || isHex(value) ? encodeAddress(value, prefix) : (value || '');
   const publicKey = u8aToHex(decodeAddress(address, false, prefix));
-  const {className = '', isAlternative, isHighlight, size = DEFAULT_SIZE, style, theme = 'default'} = {};
+  const {className = '', isAlternative, isHighlight, size = DEFAULT_SIZE, style, theme = 'default'} = props;
   const Component = !address ? Empty : Components['polkadot'];
 
   return (
     <div
       className={`ui--IdentityIcon  ${className}`}
       key={address}
-      style={style}
+      style={{...style, display: "inline-block", lineHeight: 0}}
     >
       <Component
         address={address}

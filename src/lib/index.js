@@ -1,2 +1,2 @@
 import IdentityIcon from './components/IdentityIcon';
-export { IdentityIcon };
+export default  IdentityIcon ;

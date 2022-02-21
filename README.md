@@ -4,7 +4,7 @@ This project provides a React UI component which takes a valid `Polkadot` addres
 
 ## Usage
 1. Get the package  
-`yarn add osn/react-idenicon`
+`yarn add @osn/react-identicon`
 2. Import as a ES mudule  
 `import  Identicon  from "react-idenicon";`
 3. Apply in a react based project

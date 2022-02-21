@@ -1,4 +1,4 @@
-import { IdentityIcon } from "./lib";
+import IdentityIcon from "./lib";
 
 function App() {
   return (

@@ -1,12 +1,12 @@
-# React-IdentiIcon
+# Polkadot-react-identicon
 
 This project provides a React UI component which takes a valid `Polkadot` address and generates a svg image.
 
 ## Usage
 1. Get the package  
-`yarn add @osn/react-identicon`
+`yarn add @osn/polkadot-react-identicon`
 2. Import as a ES mudule  
-`import  Identicon  from "@osn/react-identicon";`
+`import  Identicon  from "@osn/polkadot-react-identicon"`
 3. Apply in a react based project
 `<Identicon value={address} size={size} />`
 

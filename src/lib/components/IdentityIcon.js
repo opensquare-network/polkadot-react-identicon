@@ -1,6 +1,6 @@
 import React from 'react';
 import { Empty, Polkadot } from './icons';
-import { decodeAddress, encodeAddress,  isHex, isU8a, u8aToU8a } from "./crypto";
+import { decodeAddress, encodeAddress,  isHex, isU8a } from "./crypto";
 
 const DEFAULT_SIZE = 64;
 const Components = {
@@ -11,10 +11,9 @@ function MyIcon(props) {
   let prefix;
   const {value} = props;
   const address = isU8a(value) || isHex(value) ? encodeAddress(value, prefix) : (value || '');
-  const publicKey = u8aToU8a(decodeAddress(address, false, prefix));
+  const publicKey = u8aToHex(decodeAddress(address, false, prefix));
   const {className = '', isAlternative, isHighlight, size = DEFAULT_SIZE, style, theme = 'default'} = props;
   const Component = !address ? Empty : Components['polkadot'];
-  // return <h1>jjj</h1>
   return (
     <div
       className={`ui--IdentityIcon  ${className}`}

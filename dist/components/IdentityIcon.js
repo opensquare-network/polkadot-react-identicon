@@ -1,27 +1,33 @@
 "use strict";
 
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.to-string.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
+
+require("core-js/modules/es.object.define-properties.js");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
 
-require("core-js/modules/es.array-buffer.slice.js");
-
-require("core-js/modules/es.typed-array.uint8-array.js");
-
-require("core-js/modules/es.typed-array.set.js");
-
-require("core-js/modules/es.typed-array.sort.js");
-
-require("core-js/modules/es.typed-array.to-locale-string.js");
+require("core-js/modules/es.object.define-property.js");
 
 var _react = _interopRequireDefault(require("react"));
 
-var _utilCrypto = require("@polkadot/util-crypto");
-
 var _icons = require("./icons");
 
-var _constans = require("../constans");
+var _crypto = require("./crypto");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31,59 +37,27 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function hex(value) {
-  const mod = value.length % 2;
-  const length = value.length - mod;
-  const dv = new DataView(value.buffer, value.byteOffset);
-  let result = '';
-
-  for (let i = 0; i < length; i += 2) {
-    result += _constans.U16_TO_HEX[dv.getUint16(i)];
-  }
-
-  if (mod) {
-    result += _constans.U8_TO_HEX[dv.getUint8(length)];
-  }
-
-  return result;
-}
-
-function u8aToHex(value) {
-  let bitLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
-  let isPrefixed = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  const length = Math.ceil(bitLength / 8);
-  return "".concat(isPrefixed ? '0x' : '').concat(!value || !value.length ? '' : length > 0 && value.length > length ? "".concat(hex(value.subarray(0, length / 2)), "\u2026").concat(hex(value.subarray(value.length - length / 2))) : hex(value));
-}
-
-function isU8a(value) {
-  return (value === null || value === void 0 ? void 0 : value.constructor) === Uint8Array;
-}
-
-function isHex(s) {
-  return (s === null || s === void 0 ? void 0 : s.slice(0, 2)) === '0x';
-}
-
-const DEFAULT_SIZE = 64;
-const Components = {
+var DEFAULT_SIZE = 64;
+var Components = {
   polkadot: _icons.Polkadot
 };
 
 function MyIcon(props) {
-  let prefix;
-  const {
-    value
-  } = props;
-  const address = isU8a(value) || isHex(value) ? (0, _utilCrypto.encodeAddress)(value, prefix) : value || '';
-  const publicKey = u8aToHex((0, _utilCrypto.decodeAddress)(address, false, prefix));
-  const {
-    className = '',
-    isAlternative,
-    isHighlight,
-    size = DEFAULT_SIZE,
-    style,
-    theme = 'default'
-  } = props;
-  const Component = !address ? _icons.Empty : Components['polkadot'];
+  var prefix;
+  var value = props.value;
+  var address = (0, _crypto.isU8a)(value) || (0, _crypto.isHex)(value) ? (0, _crypto.encodeAddress)(value, prefix) : value || '';
+  var publicKey = (0, _crypto.u8aToU8a)((0, _crypto.decodeAddress)(address, false, prefix));
+  var _props$className = props.className,
+      className = _props$className === void 0 ? '' : _props$className,
+      isAlternative = props.isAlternative,
+      isHighlight = props.isHighlight,
+      _props$size = props.size,
+      size = _props$size === void 0 ? DEFAULT_SIZE : _props$size,
+      style = props.style,
+      _props$theme = props.theme,
+      theme = _props$theme === void 0 ? 'default' : _props$theme;
+  var Component = !address ? _icons.Empty : Components['polkadot']; // return <h1>jjj</h1>
+
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "ui--IdentityIcon  ".concat(className),
     key: address,

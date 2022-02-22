@@ -1,5 +1,5 @@
 import React from 'react';
-import { blake2AsU8a, decodeAddress } from "@polkadot/util-crypto";
+import { blake2AsU8a, decodeAddress } from "../crypto";
 
 const blake2 = value => blake2AsU8a(value, 512);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Empty, Polkadot } from './icons';
-import { decodeAddress, encodeAddress,  isHex, isU8a } from "./crypto";
+import { decodeAddress, encodeAddress,  isHex, isU8a, u8aToHex } from "./crypto";
 
 const DEFAULT_SIZE = 64;
 const Components = {

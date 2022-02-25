@@ -14,6 +14,9 @@ function MyIcon(props) {
   const publicKey = u8aToHex(decodeAddress(address, false, prefix));
   const {className = '', isAlternative, isHighlight, size = DEFAULT_SIZE, style, theme = 'default'} = props;
   const Component = !address ? Empty : Components['polkadot'];
+  if(!address) {
+    return null;
+  }
   return (
     <div
       className={`ui--IdentityIcon  ${className}`}

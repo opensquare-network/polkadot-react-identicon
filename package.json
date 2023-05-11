@@ -55,4 +55,6 @@
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11"
   }
+  },
+  "packageManager": "yarn@3.5.1"
 }

@@ -1,37 +1,9 @@
 import { assert, isBuffer } from "./util";
 import { U16_TO_HEX, U8_TO_HEX, HEX_TO_U16, HEX_TO_U8 } from "../constans";
 import { config, defaults } from "../constans";
-import {  u8aConcat } from "./util";
+import { u8aConcat } from "./util";
 import { blake2b as blake2bJs } from "@noble/hashes/blake2b";
-import util from "util";
-
-function evaluateThis(fn) {
-  return fn('return this');
-}
-
-let globalThis;
-
-export const xglobal = typeof globalThis !== 'undefined' ? globalThis : typeof global !== 'undefined' ? global : typeof window.self !== 'undefined' ? window.self : typeof window !== 'undefined' ? window : evaluateThis(Function);
-
-export function extractGlobal(name, fallback) {
-  return typeof xglobal[name] === 'undefined' ? fallback : xglobal[name];
-}
-
-class Fallback {
-  #encoder;
-
-  constructor() {
-    this.#encoder = new util.TextEncoder();
-  } // For a Jest 26.0.1 environment, Buffer !== Uint8Array
-
-
-  encode(value) {
-    return Uint8Array.from(this.#encoder.encode(value));
-  }
-
-}
-
-export const TextEncoder = extractGlobal('TextEncoder', Fallback);
+import { TextEncoder } from '@polkadot/x-textencoder'
 
 const encoder = new TextEncoder();
 
@@ -101,7 +73,7 @@ export function checkAddressChecksum(decoded) {
   return [isValid, length, ss58Length, ss58Decoded];
 }
 
-export function createValidate({chars, ipfs, type}) {
+export function createValidate({ chars, ipfs, type }) {
   return (value, ipfsCompat) => {
     assert(value && typeof value === 'string', () => `Expected non-null, non-empty ${type} string input`);
     if (ipfs && ipfsCompat) {
@@ -114,13 +86,13 @@ export function createValidate({chars, ipfs, type}) {
   };
 }
 
-export function createDecode({coder, ipfs}, validate) {
+export function createDecode({ coder, ipfs }, validate) {
   return (value, ipfsCompat) => {
     validate(value, ipfsCompat);
     return coder.decode(ipfs && ipfsCompat ? value.substr(1) : value);
   };
 }
-export function createEncode({coder, ipfs}) {
+export function createEncode({ coder, ipfs }) {
   return (value, ipfsCompat) => {
     const out = coder.encode(u8aToU8a(value));
     return ipfs && ipfsCompat ? `${ipfs}${out}` : out;
